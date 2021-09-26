@@ -1,0 +1,40 @@
+ul.nav {
+    margin: 0;
+    padding: 20px;
+    list-style: none;
+    height: 40px;
+    line-height: 40px;
+
+    background: #798582b1;
+    /* you can change the backgorund color here. */
+}
+ul.nav li {
+    // border-right: 1px solid #189b80; /* you can change the border color matching to your background color */
+    float: left;
+}
+ul.nav a {
+    display: block;
+    padding: 0 28px;
+    // color: #ccece6;
+    // text-decoration: none;
+}
+ul.nav a:hover,
+ul.nav li.current a {
+    color: #2561da;
+}
+
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+// x
+
+/* selected link */
+a:active {
+    color: blue;
+}
+
+a {
+    text-decoration: none;
+}

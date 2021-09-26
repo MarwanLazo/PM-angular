@@ -1,0 +1,83 @@
+<div clas="container">
+    <div class="left">
+
+        <form *ngIf="false">
+            <label for="ParticipantOne">First Participant </label>
+            <select id="ParticipantOne" name="ParticipantOne" [(ngModel)]="model.partOne"
+                [compareWith]="compareFn">
+                <option *ngFor="let part of participantModels" [ngValue]="part">{{part.name}}
+                </option>
+            </select>
+
+
+            <label for="ParticipantTwo">Second Participant </label>
+            <select id="ParticipantTwo" name="ParticipantTwo" [(ngModel)]="model.partTwo"
+                [compareWith]="compareFn">
+                <option *ngFor="let part of participantModels" [ngValue]="part">{{part.name}}
+                </option>
+            </select>
+
+
+            <label for="matchRound">Match Round </label>
+            <select id="matchRound" name="matchRound" [(ngModel)]="model.round"
+                [compareWith]="compareFn">
+                <option *ngFor="let round of roundModels" [ngValue]="round">{{round.name}}</option>
+            </select>
+
+
+            <label for="desc">Match Description</label>
+            <input type="text" id="desc" name="desc" [(ngModel)]="model.desc">
+
+            <label for="MatchDate">Match Date</label>
+            <input type="datetime-local" id="MatchDate" name="MatchDate"
+                [(ngModel)]="model.matchDate">
+
+            <button (click)="saveMatch($event)">Save Match</button>
+        </form>
+
+        <form #f="ngForm" (ngSubmit)="f.form.valid && createRoundMatches(f)" novalidate>
+            <label for="matchRound">Match Round </label>
+            <select id="matchRound" name="matchRound" [(ngModel)]="model.round"
+                [compareWith]="compareFn" #round="ngModel" required
+                [ngClass]="{'invalid_from':round.invalid && f.submitted}">
+                <option selected>Choose Round</option>
+                <option *ngFor="let round of roundModels" [ngValue]="round">{{round.name}}</option>
+            </select>
+            <div *ngIf="f.submitted && round.invalid " class="alert">
+                <div *ngIf="round.errors?.required"> Participant Group is required. </div>
+            </div>
+
+            <button type="submit">Create all Match In Round</button>
+            <button type="reset" (click)="cancel($event)">Cancel</button>
+        </form>
+
+    </div>
+    <div class="right">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th *ngFor="let col of columnNames" id="{{col.columHead}}">{{ col.columHead }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of matchModels" (click)="getRow(row)"
+                    [ngClass]="row?.id==selectedRow?.id ? 'row_selected' : ''">
+                    <td *ngFor="let col of columnNames">
+
+                        <span *ngIf="col.property=='round'">{{row[col.property]?.name}}</span>
+                        <span
+                            *ngIf="col.property.includes('part')">{{row[col.property]?.name}}</span>
+                        <span *ngIf="col.property=='matchDate'">
+                            {{row['matchDate'] |date:'M/d/yy, h:mm a'}}
+                        </span>
+
+                        <span *ngIf="col.property=='desc'">
+                            {{row['desc'] }}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

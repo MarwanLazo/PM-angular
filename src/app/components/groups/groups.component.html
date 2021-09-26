@@ -1,0 +1,66 @@
+<div clas="container">
+    <div class="left">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && saveGroup(f)" novalidate>
+            <label for="GroupName">Group Name</label>
+            <input type="text" id="GroupName" name="GroupName" [(ngModel)]="model.name"
+                [ngClass]="{'invalid_from':name.invalid && f.submitted}" #name="ngModel" required>
+            <div *ngIf="f.submitted && name.invalid " class="alert">
+                <div *ngIf="name.errors?.required"> Group Name is required. </div>
+            </div>
+
+
+            <label for="GroupPlace">Group Place</label>
+            <input type="text" id="GroupPlace" name="GroupPlace" [(ngModel)]="model.place"
+                [ngClass]="{'invalid_from':place.invalid && f.submitted}" #place="ngModel" required>
+
+            <div *ngIf="f.submitted && place.invalid " class="alert">
+                <div *ngIf="place.errors?.required"> Group Place is required. </div>
+            </div>
+
+            <label for="GroupSize">Group Size</label>
+            <input type="number" id="GroupSize" name="GroupSize" [(ngModel)]="model.count"
+                [ngClass]="{'invalid_from':count.invalid && f.submitted}" #count="ngModel"
+                pattern="^$|^([2-3])?" required>
+
+            <div *ngIf="f.submitted &&  count.invalid " class="alert">
+                <div *ngIf="count.errors?.required"> Place is required. </div>
+                <div *ngIf="count.errors?.pattern">
+                    Size must be from 2 TO 3.
+                </div>
+            </div>
+
+
+            <label for="GroupRound">Group Round </label>
+            <select id="GroupRound" name="GroupRound" [(ngModel)]="model.round" required
+                [ngClass]="{'invalid_from':round.invalid && f.submitted}" [compareWith]="compareFn"
+                #round="ngModel">
+                <option selected>Choose Round</option>
+                <option *ngFor="let round of roundModels" [ngValue]="round">{{round.name}}</option>
+            </select>
+            <div *ngIf="f.submitted &&  round.invalid" class="alert">
+                <div *ngIf="round.errors?.required"> Group Round is required. </div>
+            </div>
+
+            <button type="submit">Save Group</button>
+            <button type="reset" (click)="cancel($event)">Cancel</button>
+        </form>
+    </div>
+    <div class="right">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th *ngFor="let col of columnNames" id="{{col.columHead}}">{{ col.columHead }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of groupModels" (click)="getRow(row)"
+                    [ngClass]="row?.name==selectedRow?.name ? 'row_selected' : ''">
+                    <td *ngFor="let col of columnNames"> {{
+                        col.property=='round'?row[col.property]?.name:row[col.property]
+                        }} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

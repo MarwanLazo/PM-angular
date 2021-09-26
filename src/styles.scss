@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    background-color: #f2f2f2;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="datetime-local"],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    // border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    display: inline-block;
+    padding: inherit;
+    background: #f1f1f1;
+}
+.left {
+    float: left;
+    width: 32%;
+}
+.right {
+    margin-left: 37%;
+    height: 100%;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin: 5px 5px;
+    width: 60%;
+}
+
+td,
+th {
+    border-bottom: 1px solid #948080;
+    text-align: left;
+    padding: 8px;
+}
+
+table,
+th,
+td {
+    border-left: none;
+    border-right: none;
+    border-collapse: collapse;
+}
+th {
+    background-color: #798582b1;
+}
+
+tr:nth-child(odd) {
+    background-color: #c3cff0;
+}
+tr.row_selected {
+    background-color: #0e84f3ee;
+    color: white;
+}
+
+td:nth-child(2) {
+    border-right: 0px solid white;
+}
+
+button {
+    font-family: aktiv-grotesk-extended, sans-serif;
+    font-weight: 700;
+    border: 2px solid #000;
+    border-radius: 3rem;
+    overflow: hidden;
+    color: rgb(17, 15, 15);
+    padding: 7px;
+    margin: 1px;
+}
+
+.alert > * {
+    border-radius: 20px;
+    background-color: rgb(248, 11, 11);
+    color: white;
+}
+
+// .ng-valid[required],
+// .ng-valid.required {
+//     border: 2px solid #42a948; /* green */
+// }
+
+// .ng-touched:not(form)
+// .ng-pristine:not(form),
+.invalid_from {
+    border: 2px solid #f5120e; /* red */
+}

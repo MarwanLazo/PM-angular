@@ -1,0 +1,75 @@
+<div clas="container">
+    <div class="left">
+
+        <form #f="ngForm" (ngSubmit)="f.form.valid && saveParticipant(f)" novalidate>
+            <label for="ParticipantName">Participant Name {{f.submitted}}</label>
+            <input type="text" id="ParticipantName" name="ParticipantName" [(ngModel)]="model.name"
+                [(ngModel)]="model.name" #name="ngModel" required
+                [ngClass]="{'invalid_from':name.invalid && f.submitted}">
+            <div *ngIf="f.submitted && name.invalid " class="alert">
+                <div *ngIf="name.errors?.required"> Participant Name is required. </div>
+            </div>
+
+
+            <label for="ParticipantEmail">Participant Email</label>
+            <input type="email" id="ParticipantEmail" name="ParticipantEmail"
+                [(ngModel)]="model.email" [(ngModel)]="model.email" #email="ngModel" required
+                [ngClass]="{'invalid_from':email.invalid && f.submitted}"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            <div *ngIf="f.submitted && email.invalid " class="alert">
+                <div *ngIf="email.errors?.required"> Participant Email is required. </div>
+                <div *ngIf="email.errors?.pattern"> Participant Email Invalid. </div>
+            </div>
+
+
+            <label for="ParticipantPhone">Participant Phone</label>
+            <input type="text" id="ParticipantPhone" name="ParticipantPhone"
+                [(ngModel)]="model.phone" #phone="ngModel" required
+                [ngClass]="{'invalid_from':phone.invalid && f.submitted}">
+            <div *ngIf="f.submitted && phone.invalid " class="alert">
+                <div *ngIf="phone.errors?.required"> Participant Phone is required. </div>
+            </div>
+
+            <label for="ParticipantAge">Participant age</label>
+            <input type="number" id="ParticipantAge" name="ParticipantAge" [(ngModel)]="model.age"
+                #age="ngModel" required [ngClass]="{'invalid_from':age.invalid && f.submitted}">
+            <div *ngIf="f.submitted && age.invalid " class="alert">
+                <div *ngIf="age.errors?.required"> Participant Age is required. </div>
+            </div>
+
+            <label for="ParticipantGroup">Participant Group </label>
+            <select id="ParticipantGroup" name="ParticipantGroup" [(ngModel)]="model.partGroup"
+                [compareWith]="compareFn" #partGroup="ngModel" required
+                [ngClass]="{'invalid_from':partGroup.invalid && f.submitted}">
+                <option selected>Choose Group</option>
+                <option *ngFor="let Group of groupModels" [ngValue]="Group">{{Group.name}}</option>
+            </select>
+            <div *ngIf="f.submitted && partGroup.invalid " class="alert">
+                <div *ngIf="partGroup.errors?.required"> Participant Group is required. </div>
+            </div>
+
+
+            <button>Save Participant</button>
+            <button type="reset" (click)="cancel($event)">Cancel</button>
+        </form>
+    </div>
+    <div class="right">
+
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th *ngFor="let col of columnNames" id="{{col.columHead}}">{{ col.columHead }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of participantModels" (click)="getRow(row)"
+                    [ngClass]="row?.name==selectedRow?.name ? 'row_selected' : ''">
+                    <td *ngFor="let col of columnNames">
+                        {{col.property=='partGroup'?row[col.property]?.name:row[col.property]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
