@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ParticipantModel } from 'src/app/models/ParticipantModel ';
+import { ParticipantModel } from 'src/app/models/ParticipantModel';
 import { RoundModel } from 'src/app/models/RoundModel';
 import { RoundService } from 'src/app/services/lookups/round/round.service';
 import { ParticipantService } from 'src/app/services/participants/participant.service';

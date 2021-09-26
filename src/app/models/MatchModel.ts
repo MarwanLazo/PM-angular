@@ -1,4 +1,4 @@
-import { ParticipantModel } from "./ParticipantModel ";
+import { ParticipantModel } from "./ParticipantModel";
 import { RoundModel } from "./RoundModel";
 
 export class MatchModel {

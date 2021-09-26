@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { catchError, of, retry, throwError } from 'rxjs';
 import { ColumnNames } from 'src/app/models/ColumnNames';
 import { GroupModel } from 'src/app/models/GroupModel';
-import { ParticipantModel } from 'src/app/models/ParticipantModel ';
+import { ParticipantModel } from 'src/app/models/ParticipantModel';
 import { GroupsService } from 'src/app/services/groups/groups.service';
 import { ParticipantService } from 'src/app/services/participants/participant.service';
 
