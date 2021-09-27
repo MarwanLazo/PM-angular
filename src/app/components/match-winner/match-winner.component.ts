@@ -32,18 +32,17 @@ export class MatchWinnerComponent implements OnInit {
     this.matchService.getMatch().subscribe(data => {
       this.matchModels_played = data.filter(match => match.played);
       this.matchModels_not_played = data.filter(match => !match.played);
-      console.log(this.matchModels_not_played, this.matchModels_played);
     });
 
   }
-
-
 
   compareFn(a: MatchModel, b: MatchModel) {
     return a && b && a.id == b.id;
   }
 
-  setWinner(winnerId: number) { this.winnerId = winnerId; }
+  matchChange(id: number) { this.setWinner(id); }
+
+  setWinner(winnerId: number) { this.winnerId = winnerId; console.log(this.winnerId); }
 
   setMatchWinner(f: NgForm) {
     if (f.valid)

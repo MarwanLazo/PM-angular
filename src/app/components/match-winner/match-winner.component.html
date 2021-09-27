@@ -4,7 +4,8 @@
         <form #f="ngForm" (ngSubmit)="f.form.valid && setMatchWinner(f)" novalidates>
             <label for="match">Match </label>
             <select id="match" name="match" [(ngModel)]="model" [compareWith]="compareFn"
-                #match="ngModel" required [ngClass]="{'invalid_from':match.invalid && f.submitted}">
+                #match="ngModel" required [ngClass]="{'invalid_from':match.invalid && f.submitted}"
+                (change)="matchChange(model.partOne.id)">
                 <option selected>Choose match</option>
                 <option *ngFor="let match of matchModels_not_played" [ngValue]="match">
                     {{match.desc}}</option>
@@ -26,7 +27,7 @@
             </label>
 
             <br>
-            <button type="submit">Save Winner</button>
+            <button type="submit">Save Winner {{winnerId}}</button>
         </form>
     </div>
     <div class="right">
@@ -41,8 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let row of matchModels_not_played" (click)="getRow(row)"
-                        [ngClass]="row?.id==selectedRow?.id ? 'row_selected' : ''">
+                    <tr *ngFor="let row of matchModels_not_played">
                         <td *ngFor="let col of columnNames">
 
                             <span *ngIf="col.property=='round'">{{row[col.property]?.name}}</span>
@@ -73,8 +73,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let row of matchModels_played" (click)="getRow(row)"
-                        [ngClass]="row?.id==selectedRow?.id ? 'row_selected' : ''">
+                    <tr *ngFor="let row of matchModels_played">
                         <td *ngFor="let col of columnNames">
 
                             <span *ngIf="col.property=='round'">{{row[col.property]?.name}}</span>
