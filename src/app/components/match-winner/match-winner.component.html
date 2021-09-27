@@ -1,0 +1,98 @@
+<div clas="container">
+    <div class="left">
+
+        <form #f="ngForm" (ngSubmit)="f.form.valid && setMatchWinner(f)" novalidates>
+            <label for="match">Match </label>
+            <select id="match" name="match" [(ngModel)]="model" [compareWith]="compareFn"
+                #match="ngModel" required [ngClass]="{'invalid_from':match.invalid && f.submitted}">
+                <option selected>Choose match</option>
+                <option *ngFor="let match of matchModels_not_played" [ngValue]="match">
+                    {{match.desc}}</option>
+            </select>
+            <div *ngIf="f.submitted && match.invalid " class="alert">
+                <div *ngIf="match.errors?.required"> Match is required. </div>
+            </div>
+
+
+            <label *ngIf="model?.partOne && matchModels_not_played.length > 0" class="radio-inline">
+                <input type="radio" name="optradio" checked
+                    (change)="setWinner(model?.partOne?.id)">{{model?.partOne?.name}}
+            </label>
+
+            <label *ngIf="model?.partTwo && matchModels_not_played.length > 0" class="radio-inline"
+                style="padding: 10px;">
+                <input type="radio" name="optradio"
+                    (change)="setWinner(model?.partTwo?.id)">{{model?.partTwo?.name}}
+            </label>
+
+            <br>
+            <button type="submit">Save Winner</button>
+        </form>
+    </div>
+    <div class="right">
+        <fieldset style="border: 0ch;">
+            <legend style="font-weight: bold;">Matches not Played</legend>
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th *ngFor="let col of columnNames" id="{{col.columHead}}">{{ col.columHead
+                            }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of matchModels_not_played" (click)="getRow(row)"
+                        [ngClass]="row?.id==selectedRow?.id ? 'row_selected' : ''">
+                        <td *ngFor="let col of columnNames">
+
+                            <span *ngIf="col.property=='round'">{{row[col.property]?.name}}</span>
+                            <span
+                                *ngIf="col.property.includes('part') || col.property.includes('winner')">{{row[col.property]?.name}}</span>
+                            <span *ngIf="col.property=='matchDate'">
+                                {{row['matchDate'] |date:'M/d/yy, h:mm a'}}
+                            </span>
+
+
+                            <span *ngIf="col.property=='played'">
+                                {{'Not Played'}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <hr style="padding: 20px;border: 0ch;">
+        <fieldset style="border: 0ch;">
+            <legend style="font-weight: bold;"> Matches already Played</legend>
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th *ngFor="let col of columnNames" id="{{col.columHead}}">{{ col.columHead
+                            }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of matchModels_played" (click)="getRow(row)"
+                        [ngClass]="row?.id==selectedRow?.id ? 'row_selected' : ''">
+                        <td *ngFor="let col of columnNames">
+
+                            <span *ngIf="col.property=='round'">{{row[col.property]?.name}}</span>
+                            <span
+                                *ngIf="col.property.includes('part') || col.property.includes('winner')">{{row[col.property]?.name}}</span>
+                            <span *ngIf="col.property=='matchDate'">
+                                {{row['matchDate'] |date:'M/d/yy, h:mm a'}}
+                            </span>
+
+
+                            <span *ngIf="col.property=='played'">
+                                {{'Played'}}
+                            </span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>

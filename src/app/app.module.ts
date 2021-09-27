@@ -12,6 +12,7 @@ import { MatchesComponent } from './components/matches/matches.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { ErrorHandlerInterceptor } from './interceptor/error-handler.interceptor';
+import { MatchWinnerComponent } from './components/match-winner/match-winner.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ErrorHandlerInterceptor } from './interceptor/error-handler.interceptor
     ParticipantComponent,
     GroupsComponent,
     MatchesComponent,
-    HomeComponent
+    HomeComponent,
+    MatchWinnerComponent
   ],
   imports: [
     BrowserModule,

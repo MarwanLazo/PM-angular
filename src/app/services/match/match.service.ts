@@ -8,8 +8,8 @@ import { MatchModel } from 'src/app/models/MatchModel';
 })
 export class MatchService {
 
+
   private MatchURL: string = '/api/match';
-  private createRoundMatchesURL: string = '/api/match/createRoundMatches/';
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +30,13 @@ export class MatchService {
   }
 
   createRoundMatches(id: number): Observable<MatchModel[]> {
-    return this.http.get<MatchModel[]>(this.createRoundMatchesURL + id,
+    return this.http.get<MatchModel[]>(this.MatchURL + "/createRoundMatches/" + id,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+
+  setMatchWinner(id: number, winnerId: number): Observable<any> {
+    return this.http.get<any>(this.MatchURL + "/setMatchWinner/" + id + "/" + winnerId,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
